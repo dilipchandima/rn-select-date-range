@@ -1,0 +1,45 @@
+{
+  "name": "rn-date-range-picker",
+  "version": "1.0.0",
+  "description": "A simple and fully customizable React Native date range picker component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilipchandima/rn-date-range-picker.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react",
+    "native",
+    "ios",
+    "android",
+    "ui",
+    "date",
+    "date",
+    "range",
+    "date",
+    "picker",
+    "date",
+    "range",
+    "picker"
+  ],
+  "author": "Dileepa Chandima",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dilipchandima/rn-date-range-picker/issues"
+  },
+  "homepage": "https://github.com/dilipchandima/rn-date-range-picker#readme",
+  "peerDependencies": {
+    "react": "17.0.1",
+    "react-native": "0.64.2"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.66.0"
+  }
+}
