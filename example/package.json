@@ -14,7 +14,7 @@
     "moment-range": "^4.0.2",
     "react": "17.0.1",
     "react-native": "0.64.2",
-    "rn-date-range-picker": "file:../rn-date-range-picker-1.0.0.tgz"
+    "rn-date-range-picker": "file:../rn-date-range-picker-1.0.1.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

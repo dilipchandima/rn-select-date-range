@@ -1,13 +1,14 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Moment from 'moment';
-import {extendMoment} from 'moment-range';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Moment from "moment";
+import { extendMoment } from "moment-range";
 
 const moment = extendMoment(Moment);
 
-export default ({selectedDate}) => {
+export default ({ selectedDate, onSelectDate, firstDate, secondDate }) => {
   const weekdayshort = moment.weekdaysShort();
-  const weekdayshortname = weekdayshort.map(day => {
+
+  const weekdayshortname = weekdayshort.map((day) => {
     return (
       <View style={styles.dayNameContainer}>
         <Text key={day} style={styles.date}>
@@ -19,7 +20,7 @@ export default ({selectedDate}) => {
 
   const firstDayOfMonth = () => {
     let dateObject = selectedDate;
-    let firstDay = dateObject.startOf('month').format('d');
+    let firstDay = dateObject.startOf("month").format("d");
     return firstDay;
   };
 
@@ -31,10 +32,24 @@ export default ({selectedDate}) => {
 
     const daysInMonth = [];
     for (let d = 1; d <= selectedDate.daysInMonth(); d++) {
+      const date = moment(selectedDate).date(d);
+      const isToday = date.isSame(moment(), "day");
+      const iddd = secondDate?.isBefore(firstDate);
+      const isSelected = iddd
+        ? date.isBetween(secondDate, firstDate)
+        : date.isBetween(firstDate, secondDate);
+
+      const style =
+        isSelected ||
+        isToday ||
+        date.isSame(firstDate, "day") ||
+        date.isSame(secondDate, "day")
+          ? styles.todayNameContainer
+          : styles.dayNameContainer;
       daysInMonth.push(
-        <View style={styles.dayNameContainer}>
+        <TouchableOpacity onPress={() => onSelectDate(date)} style={style}>
           <Text>{d}</Text>
-        </View>,
+        </TouchableOpacity>
       );
     }
 
@@ -71,25 +86,29 @@ export default ({selectedDate}) => {
 
 const styles = StyleSheet.create({
   weekRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   date: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   dayNameContainer: {
     flex: 1,
     minHeight: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    margin: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  todayNameContainer: {
+    flex: 1,
+    minHeight: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FA4038",
   },
   emptyDayNameContainer: {
     flex: 1,
     minHeight: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 3,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

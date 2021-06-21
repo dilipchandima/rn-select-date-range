@@ -1,3 +1,5 @@
 import DateRangePicker from "./src/DateRangePicker";
+import Month from "./src/Month";
 
-export { DateRangePicker };
+export { Month };
+export default DateRangePicker;
