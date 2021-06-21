@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import Moment from 'moment';
+import {extendMoment} from 'moment-range';
 
 const moment = extendMoment(Moment);
 
 export default () => {
   const weekdayshort = moment.weekdaysShort();
-  const weekdayshortname = weekdayshort.map((day) => {
+  const weekdayshortname = weekdayshort.map(day => {
     return (
       <View style={styles.dayNameContainer}>
         <Text key={day} style={styles.date}>
@@ -19,7 +19,7 @@ export default () => {
 
   const firstDayOfMonth = () => {
     let dateObject = moment();
-    let firstDay = dateObject.startOf("month").format("d");
+    let firstDay = dateObject.startOf('month').format('d');
     return firstDay;
   };
 
@@ -51,17 +51,17 @@ export default () => {
 
 const styles = StyleSheet.create({
   weekRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   date: {
-    textAlign: "center",
+    textAlign: 'center',
   },
   dayNameContainer: {
     flex: 1,
     minHeight: 40,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     margin: 3,
   },
