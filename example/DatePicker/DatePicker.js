@@ -1,50 +1,73 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Moment from 'moment';
 import {extendMoment} from 'moment-range';
+import Month from './Month';
 
 const moment = extendMoment(Moment);
 
 export default () => {
-  const weekdayshort = moment.weekdaysShort();
-  const weekdayshortname = weekdayshort.map(day => {
-    return (
-      <View style={styles.dayNameContainer}>
-        <Text key={day} style={styles.date}>
-          {day}
-        </Text>
-      </View>
-    );
-  });
+  const [selectedDate, setSelectedDate] = useState(
+    moment().subtract(1, 'months'),
+  );
 
-  const firstDayOfMonth = () => {
-    let dateObject = moment();
-    let firstDay = dateObject.startOf('month').format('d');
-    return firstDay;
-  };
-
-  //   let rows = [];
-  //   let cells = [];
-
-  //   const daysinmonth = rows.map((d, i) => {
-  //     return <tr>{d}</tr>;
-  //   });
-
-  const blanks = [];
-  for (let i = 0; i < firstDayOfMonth(); i++) {
-    blanks.push(<View style={styles.dayNameContainer}></View>);
-  }
-
-  //   const daysInMonth = [];
-  //   for (let d = 1; d <= daysinmonth(); d++) {
-  //     daysInMonth.push(<View style={styles.dayNameContainer}>{d}</View>);
-  //   }
+  const lastMonth = selectedDate.clone().subtract(1, 'months');
+  const lastYear = selectedDate.clone().subtract(1, 'years');
+  const nextMonth = selectedDate.clone().add(1, 'months');
+  const nextYear = selectedDate.clone().add(1, 'years');
 
   return (
     <View>
-      <View style={styles.weekRow}>{weekdayshortname}</View>
-      <Text>{firstDayOfMonth()}</Text>
-      <View style={styles.weekRow}>{blanks}</View>
+      <View style={styles.weekRow}>
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            setSelectedDate(lastYear);
+          }}>
+          <Text>
+            {'< '}
+            {lastYear.format('YYYY')}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedDate.format('YYYY')}</Text>
+
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            setSelectedDate(nextYear);
+          }}>
+          <Text>
+            {nextYear.format('YYYY')}
+            {' >'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.weekRow}>
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            setSelectedDate(lastMonth);
+          }}>
+          <Text>
+            {'< '}
+            {lastMonth.format('MMM')}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>{selectedDate.format('MMMM')}</Text>
+
+        <TouchableOpacity
+          style={styles.sideButton}
+          onPress={() => {
+            setSelectedDate(nextMonth);
+          }}>
+          <Text>
+            {nextMonth.format('MMM')}
+            {' >'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <Month selectedDate={selectedDate} />
     </View>
   );
 };
@@ -64,5 +87,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     margin: 3,
+  },
+  sideButton: {
+    height: 40,
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    marginTop: 5,
   },
 });
