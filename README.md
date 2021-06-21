@@ -1,5 +1,10 @@
-# rn-date-range-picker
+# rnv-date-range-picker
 
-A simple and fully customizable React Native date range picker component
+A simple React Native date range picker component
 
-Still under development
+### Installing:
+
+```
+npm install rnv-date-range-picker
+yarn add rnv-date-range-picker
+```
