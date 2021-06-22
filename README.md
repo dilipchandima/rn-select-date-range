@@ -18,6 +18,8 @@ yarn add rnv-date-range-picker
 
 ### Screenshot
 
+![screen gif](https://media.giphy.com/media/qvl9TQCBdaMh116zk1/giphy.gif)
+
 ![screen shot](https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen.png)
 
 # Prerequisites
