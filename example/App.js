@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
-import {DateRangePicker} from 'rn-date-range-picker';
+import DateRangePicker from 'rnv-date-range-picker';
 
 const App = () => {
   const [selectedRange, setRange] = useState({});

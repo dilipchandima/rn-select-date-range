@@ -31,9 +31,10 @@ npm install --save moment
 # Example
 
 ```js
+import moment from "moment";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
-import { DateRangePicker } from "rn-date-range-picker";
+import DateRangePicker from "rnv-date-range-picker";
 
 const App = () => {
   const [selectedRange, setRange] = useState({});
@@ -48,8 +49,10 @@ const App = () => {
           maxDate={moment()}
           minDate={moment().subtract(100, "days")}
         />
-        <Text>first date: {selectedRange.firstDate}</Text>
-        <Text>second date: {selectedRange.secondDate}</Text>
+        <View style={styles.container}>
+          <Text>first date: {selectedRange.firstDate}</Text>
+          <Text>second date: {selectedRange.secondDate}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -80,6 +83,14 @@ export default App;
     firstDate: if you pass responseFormat it will be a formatted date, if not it will be a moment date
     lastDate: if you pass responseFormat it will be a formatted date, if not it will be a moment date
 }
+```
+
+### Run the sample app
+
+```
+cd example
+npm install
+npx react-native run-ios
 ```
 
 # Suggestions?
