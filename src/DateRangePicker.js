@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import Moment from "moment";
 import { extendMoment } from "moment-range";
 import Month from "./Month";
+import Button from "./Button";
 
 const moment = extendMoment(Moment);
 
-export default ({ onSelectDateRange, responseFormat }) => {
-  const [selectedDate, setSelectedDate] = useState(
-    moment().subtract(1, "months")
-  );
+export default ({
+  onSelectDateRange,
+  responseFormat,
+  maxDate,
+  minDate,
+  font,
+}) => {
+  const [selectedDate, setSelectedDate] = useState(moment());
 
   const [firstDate, setFirstDate] = useState(null);
   const [secondDate, setSecondDate] = useState(null);
@@ -19,6 +24,19 @@ export default ({ onSelectDateRange, responseFormat }) => {
   const nextMonth = selectedDate.clone().add(1, "months");
   const nextYear = selectedDate.clone().add(1, "years");
 
+  const returnSelectedRange = (fd, ld) => {
+    if (responseFormat) {
+      onSelectDateRange({
+        firstDate: fd.format(responseFormat),
+        secondDate: ld.format(responseFormat),
+      });
+    } else {
+      onSelectDateRange({
+        firstDate: fd,
+        secondDate: ld,
+      });
+    }
+  };
   const onSelectDate = (date) => {
     console.log(date.format("YYYY-MMM-DD"));
 
@@ -27,17 +45,11 @@ export default ({ onSelectDateRange, responseFormat }) => {
     } else {
       if (!secondDate) {
         setSecondDate(date);
-        onSelectDateRange({
-          firstDate: firstDate.format(responseFormat),
-          secondDate: date.format(responseFormat),
-        });
+        returnSelectedRange(firstDate, date);
       } else {
         setFirstDate(secondDate);
         setSecondDate(date);
-        onSelectDateRange({
-          firstDate: secondDate.format(responseFormat),
-          secondDate: date.format(responseFormat),
-        });
+        returnSelectedRange(secondDate, date);
       }
     }
 
@@ -46,64 +58,42 @@ export default ({ onSelectDateRange, responseFormat }) => {
 
   return (
     <View>
-      <View style={styles.weekRow}>
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            setSelectedDate(lastYear);
-          }}
-        >
-          <Text>
-            {"< "}
-            {lastYear.format("YYYY")}
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.titleRow}>
+        <Button
+          disabled={minDate ? lastYear.isBefore(minDate, "months") : false}
+          lable={`< ${lastYear.format("YYYY")}`}
+          onPress={() => setSelectedDate(lastYear)}
+        />
         <Text style={styles.title}>{selectedDate.format("YYYY")}</Text>
-
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            setSelectedDate(nextYear);
-          }}
-        >
-          <Text>
-            {nextYear.format("YYYY")}
-            {" >"}
-          </Text>
-        </TouchableOpacity>
+        <Button
+          disabled={maxDate ? nextYear.isAfter(maxDate, "months") : false}
+          lable={`${nextYear.format("YYYY")} >`}
+          onPress={() => setSelectedDate(nextYear)}
+          align="right"
+        />
       </View>
 
-      <View style={styles.weekRow}>
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            setSelectedDate(lastMonth);
-          }}
-        >
-          <Text>
-            {"< "}
-            {lastMonth.format("MMM")}
-          </Text>
-        </TouchableOpacity>
+      <View style={styles.titleRow}>
+        <Button
+          disabled={minDate ? lastMonth.isBefore(minDate, "months") : false}
+          lable={`< ${lastMonth.format("MMM")}`}
+          onPress={() => setSelectedDate(lastMonth)}
+        />
         <Text style={styles.title}>{selectedDate.format("MMMM")}</Text>
-
-        <TouchableOpacity
-          style={styles.sideButton}
-          onPress={() => {
-            setSelectedDate(nextMonth);
-          }}
-        >
-          <Text>
-            {nextMonth.format("MMM")}
-            {" >"}
-          </Text>
-        </TouchableOpacity>
+        <Button
+          disabled={maxDate ? nextMonth.isAfter(maxDate, "months") : false}
+          lable={`${nextMonth.format("MMM")} >`}
+          onPress={() => setSelectedDate(nextMonth)}
+          align="right"
+        />
       </View>
       <Month
         selectedDate={selectedDate}
         onSelectDate={onSelectDate}
         firstDate={firstDate}
         secondDate={secondDate}
+        maxDate={maxDate}
+        minDate={minDate}
       />
     </View>
   );
@@ -113,6 +103,16 @@ const styles = StyleSheet.create({
   weekRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+  },
+  titleRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#EEE",
+    marginBottom: 5,
+    padding: 5,
+    borderRadius: 5,
   },
   date: {
     textAlign: "center",
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginTop: 5,
+    flex: 1,
+    textAlign: "center",
   },
 });

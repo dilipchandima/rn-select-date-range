@@ -5,13 +5,20 @@ import { extendMoment } from "moment-range";
 
 const moment = extendMoment(Moment);
 
-export default ({ selectedDate, onSelectDate, firstDate, secondDate }) => {
+export default ({
+  selectedDate,
+  onSelectDate,
+  firstDate,
+  secondDate,
+  maxDate,
+  minDate,
+}) => {
   const weekdayshort = moment.weekdaysShort();
 
   const weekdayshortname = weekdayshort.map((day) => {
     return (
       <View style={styles.dayNameContainer}>
-        <Text key={day} style={styles.date}>
+        <Text key={day} style={styles.dayNameStyle}>
           {day}
         </Text>
       </View>
@@ -33,22 +40,40 @@ export default ({ selectedDate, onSelectDate, firstDate, secondDate }) => {
     const daysInMonth = [];
     for (let d = 1; d <= selectedDate.daysInMonth(); d++) {
       const date = moment(selectedDate).date(d);
+      const isDisabledMAXD = maxDate ? date.isAfter(maxDate, "days") : false;
+      const isDisabledMIND = minDate ? date.isBefore(minDate, "days") : false;
+
       const isToday = date.isSame(moment(), "day");
       const iddd = secondDate?.isBefore(firstDate);
       const isSelected = iddd
         ? date.isBetween(secondDate, firstDate)
-        : date.isBetween(firstDate, secondDate);
+        : date.isBetween(firstDate, secondDate) ||
+          date.isSame(firstDate, "day") ||
+          date.isSame(secondDate, "day");
 
-      const style =
-        isSelected ||
-        isToday ||
-        date.isSame(firstDate, "day") ||
-        date.isSame(secondDate, "day")
-          ? styles.todayNameContainer
-          : styles.dayNameContainer;
+      const style = isSelected
+        ? styles.todayNameContainer
+        : styles.dayNameContainer;
       daysInMonth.push(
-        <TouchableOpacity onPress={() => onSelectDate(date)} style={style}>
-          <Text>{d}</Text>
+        <TouchableOpacity
+          disabled={isDisabledMAXD || isDisabledMIND}
+          onPress={() => onSelectDate(date)}
+          style={styles.dayNameContainer}
+        >
+          <View style={isSelected ? styles.todayNameContainer : null}>
+            <Text
+              style={[
+                isSelected
+                  ? styles.selectedDate
+                  : isToday
+                  ? styles.today
+                  : styles.noneSelectedDate,
+                { opacity: isDisabledMAXD || isDisabledMIND ? 0.2 : 1 },
+              ]}
+            >
+              {d}
+            </Text>
+          </View>
         </TouchableOpacity>
       );
     }
@@ -99,8 +124,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   todayNameContainer: {
-    flex: 1,
-    minHeight: 40,
+    height: 30,
+    width: 30,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FA4038",
@@ -110,5 +136,18 @@ const styles = StyleSheet.create({
     minHeight: 40,
     alignItems: "center",
     justifyContent: "center",
+  },
+  selectedDate: {
+    color: "white",
+  },
+  noneSelectedDate: {
+    color: "black",
+  },
+  today: {
+    color: "blue",
+  },
+  dayNameStyle: {
+    fontSize: 11,
+    textAlign: "center",
   },
 });

@@ -8,14 +8,27 @@ A simple React Native date range picker component
 
 ```
 npm install rnv-date-range-picker
+```
+
+or
+
+```
 yarn add rnv-date-range-picker
 ```
 
+### Screenshot
+
 ![screen shot](https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen.png)
 
----
+# Prerequisites
 
-## Sample React Native Code
+CalendarPicker requires Moment JS.
+
+```
+npm install --save moment
+```
+
+# Example
 
 ```js
 import React, { useState } from "react";
@@ -32,6 +45,8 @@ const App = () => {
             setRange(range);
           }}
           responseFormat="YYYY-MM-DD"
+          maxDate={moment()}
+          minDate={moment().subtract(100, "days")}
         />
         <Text>first date: {selectedRange.firstDate}</Text>
         <Text>second date: {selectedRange.secondDate}</Text>
@@ -48,3 +63,25 @@ const styles = StyleSheet.create({
 
 export default App;
 ```
+
+## CalendarPicker Props
+
+| Prop                    | Type       | Description                                                                                                             |
+| :---------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **`maxDate`**           | `Moment()` | Optional. If you need to pass Max Date user can select, set this prop as a moment date                                  |
+| **`minDate`**           | `Moment()` | Optional. If you need to pass Min Date user can select, set this prop as a moment date                                  |
+| **`responseFormat`**    | `String`   | Optional. Please refere the date formats here [Moment Date Formats](https://momentjs.com/docs/#/parsing/string-format/) |
+| **`onSelectDateRange`** | `Method`   | This will return a object with firstDate and lastDate                                                                   |
+
+### onSelectDateRange response
+
+```
+{
+    firstDate: if you pass responseFormat it will be a formatted date, if not it will be a moment date
+    lastDate: if you pass responseFormat it will be a formatted date, if not it will be a moment date
+}
+```
+
+# Suggestions?
+
+Open Issues. Submit PRs.

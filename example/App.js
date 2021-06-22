@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import {DateRangePicker} from 'rn-date-range-picker';
@@ -12,9 +13,13 @@ const App = () => {
             setRange(range);
           }}
           responseFormat="YYYY-MM-DD"
+          maxDate={moment()}
+          minDate={moment().subtract(100, 'days')}
         />
-        <Text>first date: {selectedRange.firstDate}</Text>
-        <Text>second date: {selectedRange.secondDate}</Text>
+        <View style={styles.container}>
+          <Text>first date: {selectedRange.firstDate}</Text>
+          <Text>second date: {selectedRange.secondDate}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
