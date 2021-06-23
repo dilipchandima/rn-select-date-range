@@ -17,10 +17,8 @@ export default ({
 
   const weekdayshortname = weekdayshort.map((day) => {
     return (
-      <View key={day} style={styles.dayNameContainer}>
-        <Text style={styles.dayNameStyle}>
-          {day}
-        </Text>
+      <View key={`${day}_days`} style={styles.dayNameContainer}>
+        <Text style={styles.dayNameStyle}>{day}</Text>
       </View>
     );
   });
@@ -34,7 +32,9 @@ export default ({
   const getRows = () => {
     const blanks = [];
     for (let i = 0; i < firstDayOfMonth(); i++) {
-      blanks.push(<View style={styles.emptyDayNameContainer} />);
+      blanks.push(
+        <View key={`${i}_days_blanks`} style={styles.emptyDayNameContainer} />
+      );
     }
 
     const daysInMonth = [];
@@ -56,7 +56,7 @@ export default ({
         : styles.dayNameContainer;
       daysInMonth.push(
         <TouchableOpacity
-          key={d}
+          key={`${d}_date_month`}
           disabled={isDisabledMAXD || isDisabledMIND}
           onPress={() => onSelectDate(date)}
           style={styles.dayNameContainer}
@@ -87,16 +87,29 @@ export default ({
       if (i % 7 !== 0) {
         cells.push(row);
       } else {
-        rows.push(<View key={`${i}_week`} style={styles.weekRow}>{cells}</View>);
+        rows.push(
+          <View key={`${i}_week`} style={styles.weekRow}>
+            {cells}
+          </View>
+        );
         cells = [];
         cells.push(row);
       }
       if (i === totalSlots.length - 1) {
         const remain = 7 - cells.length;
         for (let i = 0; i < remain; i++) {
-          cells.push(<View style={styles.emptyDayNameContainer} />);
+          cells.push(
+            <View
+              key={`${i}_remain_dates`}
+              style={styles.emptyDayNameContainer}
+            />
+          );
         }
-        rows.push(<View key={`${i}_week`} style={styles.weekRow}>{cells}</View>);
+        rows.push(
+          <View key={`${i}_week`} style={styles.weekRow}>
+            {cells}
+          </View>
+        );
       }
     });
     return rows;

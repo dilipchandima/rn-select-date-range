@@ -25,21 +25,26 @@ export default ({
   const nextYear = selectedDate.clone().add(1, "years");
 
   const returnSelectedRange = (fd, ld) => {
+    const isWrongSide = ld?.isBefore(fd);
+
     if (responseFormat) {
       onSelectDateRange({
-        firstDate: fd.format(responseFormat),
-        secondDate: ld.format(responseFormat),
+        firstDate: isWrongSide
+          ? ld.format(responseFormat)
+          : fd.format(responseFormat),
+        secondDate: isWrongSide
+          ? fd.format(responseFormat)
+          : ld.format(responseFormat),
       });
     } else {
       onSelectDateRange({
-        firstDate: fd,
-        secondDate: ld,
+        firstDate: isWrongSide ? ld : fd,
+        secondDate: isWrongSide ? fd : ld,
       });
     }
   };
-  const onSelectDate = (date) => {
-    console.log(date.format("YYYY-MMM-DD"));
 
+  const onSelectDate = (date) => {
     if (!firstDate) {
       setFirstDate(date);
     } else {
@@ -52,8 +57,6 @@ export default ({
         returnSelectedRange(secondDate, date);
       }
     }
-
-    console.log(firstDate?.format("YYYY-MMM-DD"), date?.format("YYYY-MMM-DD"));
   };
 
   return (
