@@ -17,8 +17,8 @@ export default ({
 
   const weekdayshortname = weekdayshort.map((day) => {
     return (
-      <View style={styles.dayNameContainer}>
-        <Text key={day} style={styles.dayNameStyle}>
+      <View key={day} style={styles.dayNameContainer}>
+        <Text style={styles.dayNameStyle}>
           {day}
         </Text>
       </View>
@@ -56,6 +56,7 @@ export default ({
         : styles.dayNameContainer;
       daysInMonth.push(
         <TouchableOpacity
+          key={d}
           disabled={isDisabledMAXD || isDisabledMIND}
           onPress={() => onSelectDate(date)}
           style={styles.dayNameContainer}
@@ -86,7 +87,7 @@ export default ({
       if (i % 7 !== 0) {
         cells.push(row);
       } else {
-        rows.push(<View style={styles.weekRow}>{cells}</View>);
+        rows.push(<View key={`${i}_week`} style={styles.weekRow}>{cells}</View>);
         cells = [];
         cells.push(row);
       }
@@ -95,7 +96,7 @@ export default ({
         for (let i = 0; i < remain; i++) {
           cells.push(<View style={styles.emptyDayNameContainer} />);
         }
-        rows.push(<View style={styles.weekRow}>{cells}</View>);
+        rows.push(<View key={`${i}_week`} style={styles.weekRow}>{cells}</View>);
       }
     });
     return rows;
