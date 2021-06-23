@@ -45,15 +45,13 @@ export default ({
 
       const isToday = date.isSame(moment(), "day");
       const iddd = secondDate?.isBefore(firstDate);
-      const isSelected = iddd
-        ? date.isBetween(secondDate, firstDate)
-        : date.isBetween(firstDate, secondDate) ||
-          date.isSame(firstDate, "day") ||
-          date.isSame(secondDate, "day");
+      const isSelected =
+        (iddd
+          ? date.isBetween(secondDate, firstDate)
+          : date.isBetween(firstDate, secondDate)) ||
+        date.isSame(firstDate, "day") ||
+        date.isSame(secondDate, "day");
 
-      const style = isSelected
-        ? styles.todayNameContainer
-        : styles.dayNameContainer;
       daysInMonth.push(
         <TouchableOpacity
           key={`${d}_date_month`}

@@ -1,6 +1,6 @@
 {
   "name": "rnv-date-range-picker",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A simple and fully customizable React Native date range picker component",
   "main": "index.js",
   "scripts": {
