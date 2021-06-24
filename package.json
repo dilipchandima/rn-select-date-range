@@ -1,6 +1,6 @@
 {
   "name": "rn-select-date-range",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "A simple and fully customizable React Native date range picker component",
   "main": "index.js",
   "scripts": {
@@ -43,7 +43,6 @@
     "metro-react-native-babel-preset": "^0.66.0"
   },
   "dependencies": {
-    "moment": "^2.29.1",
-    "moment-range": "^4.0.2"
+    "moment": "^2.29.1"
   }
 }

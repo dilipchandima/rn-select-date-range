@@ -1,9 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
-
-const moment = extendMoment(Moment);
+import moment from "moment";
 
 export default ({
   selectedDate,
@@ -12,13 +9,15 @@ export default ({
   secondDate,
   maxDate,
   minDate,
+  selectedDateContainerStyle,
+  font,
+  selectedDateStyle,
 }) => {
   const weekdayshort = moment.weekdaysShort();
-
   const weekdayshortname = weekdayshort.map((day) => {
     return (
-      <View key={`${day}_days`} style={styles.dayNameContainer}>
-        <Text style={styles.dayNameStyle}>{day}</Text>
+      <View key={`${day}_week_days`} style={styles.dayNameContainer}>
+        <Text style={{ ...styles.dayNameStyle, fontFamily: font }}>{day}</Text>
       </View>
     );
   });
@@ -31,9 +30,12 @@ export default ({
 
   const getRows = () => {
     const blanks = [];
-    for (let i = 0; i < firstDayOfMonth(); i++) {
+    for (let index = 0; index < firstDayOfMonth(); index++) {
       blanks.push(
-        <View key={`${i}_days_blanks`} style={styles.emptyDayNameContainer} />
+        <View
+          key={`${index}_days_blanks`}
+          style={styles.emptyDayNameContainer}
+        />
       );
     }
 
@@ -59,11 +61,22 @@ export default ({
           onPress={() => onSelectDate(date)}
           style={styles.dayNameContainer}
         >
-          <View style={isSelected ? styles.todayNameContainer : null}>
+          <View
+            style={
+              isSelected
+                ? selectedDateContainerStyle
+                  ? selectedDateContainerStyle
+                  : styles.todayNameContainer
+                : null
+            }
+          >
             <Text
               style={[
+                { fontFamily: font },
                 isSelected
-                  ? styles.selectedDate
+                  ? selectedDateStyle
+                    ? selectedDateStyle
+                    : styles.selectedDate
                   : isToday
                   ? styles.today
                   : styles.noneSelectedDate,
@@ -81,30 +94,30 @@ export default ({
     let rows = [];
     let cells = [];
 
-    totalSlots.forEach((row, i) => {
-      if (i % 7 !== 0) {
+    totalSlots.forEach((row, index) => {
+      if (index % 7 !== 0) {
         cells.push(row);
       } else {
         rows.push(
-          <View key={`${i}_week`} style={styles.weekRow}>
+          <View key={`${index}_week`} style={styles.weekRow}>
             {cells}
           </View>
         );
         cells = [];
         cells.push(row);
       }
-      if (i === totalSlots.length - 1) {
+      if (index === totalSlots.length - 1) {
         const remain = 7 - cells.length;
-        for (let i = 0; i < remain; i++) {
+        for (let indexRemain = 0; indexRemain < remain; indexRemain++) {
           cells.push(
             <View
-              key={`${i}_remain_dates`}
+              key={`${indexRemain}_remain_dates`}
               style={styles.emptyDayNameContainer}
             />
           );
         }
         rows.push(
-          <View key={`${i}_week`} style={styles.weekRow}>
+          <View key={`${index}_week`} style={styles.weekRow}>
             {cells}
           </View>
         );
@@ -125,9 +138,6 @@ const styles = StyleSheet.create({
   weekRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  date: {
-    textAlign: "center",
   },
   dayNameContainer: {
     flex: 1,

@@ -2,15 +2,15 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 export default ({ lable, onPress = () => {}, align, disabled = false }) => {
+  const textStyle = { textAlign: align, opacity: disabled ? 0.2 : 1 };
+
   return (
     <TouchableOpacity
       disabled={disabled}
       style={styles.buttonContainer}
       onPress={() => onPress()}
     >
-      <Text style={{ textAlign: align, opacity: disabled ? 0.2 : 1 }}>
-        {lable}
-      </Text>
+      <Text style={textStyle}>{lable}</Text>
     </TouchableOpacity>
   );
 };

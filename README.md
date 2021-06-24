@@ -4,7 +4,7 @@ A simple React Native date range picker component
 
 ---
 
-### Installing:
+## Installing
 
 ```
 npm install rn-select-date-range
@@ -16,13 +16,22 @@ or
 yarn add rn-select-date-range
 ```
 
-### Screenshot
+---
 
-![screen gif](https://media.giphy.com/media/qvl9TQCBdaMh116zk1/giphy.gif)
+## Screenshot
 
-![screen shot](https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen.png)
+<p align="center">
+  <img src="https://media.giphy.com/media/qvl9TQCBdaMh116zk1/giphy.gif">
+</p>
 
-# Prerequisites
+<p align="center">
+  <img src="https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen.png">
+  <img src="https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen2.png">
+</p>
+
+---
+
+## Prerequisites
 
 CalendarPicker requires Moment JS.
 
@@ -30,7 +39,9 @@ CalendarPicker requires Moment JS.
 npm install --save moment
 ```
 
-# Example
+---
+
+## Example React Native App
 
 ```js
 import moment from "moment";
@@ -47,9 +58,12 @@ const App = () => {
           onSelectDateRange={(range) => {
             setRange(range);
           }}
+          blockSingleDateSelection={true}
           responseFormat="YYYY-MM-DD"
           maxDate={moment()}
           minDate={moment().subtract(100, "days")}
+          selectedDateContainerStyle={styles.selectedDateContainerStyle}
+          selectedDateStyle={styles.selectedDateStyle}
         />
         <View style={styles.container}>
           <Text>first date: {selectedRange.firstDate}</Text>
@@ -64,21 +78,40 @@ const styles = StyleSheet.create({
   container: {
     margin: 50,
   },
+  selectedDateContainerStyle: {
+    height: 35,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "blue",
+  },
+  selectedDateStyle: {
+    fontWeight: "bold",
+    color: "white",
+  },
 });
 
 export default App;
 ```
 
+---
+
 ## CalendarPicker Props
 
-| Prop                    | Type       | Description                                                                                                             |
-| :---------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------- |
-| **`maxDate`**           | `Moment()` | Optional. If you need to pass Max Date user can select, set this prop as a moment date                                  |
-| **`minDate`**           | `Moment()` | Optional. If you need to pass Min Date user can select, set this prop as a moment date                                  |
-| **`responseFormat`**    | `String`   | Optional. Please refere the date formats here [Moment Date Formats](https://momentjs.com/docs/#/parsing/string-format/) |
-| **`onSelectDateRange`** | `Method`   | This will return a object with firstDate and lastDate                                                                   |
+| Prop                             | Type       | Description                                                                                                             |
+| :------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **`maxDate`**                    | `Moment()` | Optional. If you need to pass Max Date user can select, set this prop as a moment date                                  |
+| **`minDate`**                    | `Moment()` | Optional. If you need to pass Min Date user can select, set this prop as a moment date                                  |
+| **`responseFormat`**             | `String`   | Optional. Please refere the date formats here [Moment Date Formats](https://momentjs.com/docs/#/parsing/string-format/) |
+| **`onSelectDateRange`**          | `Method`   | This will return a object with firstDate and lastDate                                                                   |
+| **`blockSingleDateSelection`**   | `boolean`  | This will block the user to click single date without date range                                                        |
+| **`font`**                       | `String`   | Name of the font you are using in your theme                                                                            |
+| **`selectedDateContainerStyle`** | `Style`    | Style of the selected date container                                                                                    |
+| **`selectedDateStyle`**          | `Style`    | Style of the selected date                                                                                              |
 
-### onSelectDateRange response
+---
+
+## onSelectDateRange response
 
 ```
 {
@@ -87,7 +120,9 @@ export default App;
 }
 ```
 
-### Run the sample app
+---
+
+## Run the sample app
 
 ```
 cd example
@@ -95,6 +130,8 @@ npm install
 npx react-native run-ios
 ```
 
-# Suggestions?
+---
+
+## Suggestions?
 
 Open Issues. Submit PRs.

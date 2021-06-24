@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Moment from "moment";
-import { extendMoment } from "moment-range";
+import moment from "moment";
 import Month from "./Month";
 import Button from "./Button";
 
-const moment = extendMoment(Moment);
+import PropTypes from "prop-types";
 
-export default ({
+const DateRangePicker = ({
   onSelectDateRange,
   responseFormat,
   maxDate,
   minDate,
+  blockSingleDateSelection,
   font,
+  selectedDateContainerStyle,
+  selectedDateStyle,
 }) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
@@ -45,6 +47,13 @@ export default ({
   };
 
   const onSelectDate = (date) => {
+    if (
+      blockSingleDateSelection &&
+      (firstDate?.isSame(date, "dates") || secondDate?.isSame(date, "dates"))
+    ) {
+      return;
+    }
+
     if (!firstDate) {
       setFirstDate(date);
     } else {
@@ -63,12 +72,16 @@ export default ({
     <View>
       <View style={styles.titleRow}>
         <Button
+          font={font}
           disabled={minDate ? lastYear.isBefore(minDate, "months") : false}
           lable={`< ${lastYear.format("YYYY")}`}
           onPress={() => setSelectedDate(lastYear)}
         />
-        <Text style={styles.title}>{selectedDate.format("YYYY")}</Text>
+        <Text style={{ ...styles.title, fontFamily: font }}>
+          {selectedDate.format("YYYY")}
+        </Text>
         <Button
+          font={font}
           disabled={maxDate ? nextYear.isAfter(maxDate, "months") : false}
           lable={`${nextYear.format("YYYY")} >`}
           onPress={() => setSelectedDate(nextYear)}
@@ -78,12 +91,16 @@ export default ({
 
       <View style={styles.titleRow}>
         <Button
+          font={font}
           disabled={minDate ? lastMonth.isBefore(minDate, "months") : false}
           lable={`< ${lastMonth.format("MMM")}`}
           onPress={() => setSelectedDate(lastMonth)}
         />
-        <Text style={styles.title}>{selectedDate.format("MMMM")}</Text>
+        <Text style={{ ...styles.title, fontFamily: font }}>
+          {selectedDate.format("MMMM")}
+        </Text>
         <Button
+          font={font}
           disabled={maxDate ? nextMonth.isAfter(maxDate, "months") : false}
           lable={`${nextMonth.format("MMM")} >`}
           onPress={() => setSelectedDate(nextMonth)}
@@ -91,23 +108,38 @@ export default ({
         />
       </View>
       <Month
+        font={font}
         selectedDate={selectedDate}
         onSelectDate={onSelectDate}
         firstDate={firstDate}
         secondDate={secondDate}
         maxDate={maxDate}
         minDate={minDate}
+        selectedDateContainerStyle={selectedDateContainerStyle}
+        selectedDateStyle={selectedDateStyle}
       />
     </View>
   );
 };
 
+export default DateRangePicker;
+
+DateRangePicker.defaultProps = {
+  blockSingleDateSelection: false,
+};
+
+DateRangePicker.prototype = {
+  onSelectDateRange: PropTypes.func.isRequired,
+  responseFormat: PropTypes.string,
+  maxDate: PropTypes.object,
+  minDate: PropTypes.object,
+  blockSingleDateSelection: PropTypes.bool,
+  font: PropTypes.string,
+  selectedDateContainerStyle: PropTypes.object,
+  selectedDateStyle: PropTypes.object,
+};
+
 const styles = StyleSheet.create({
-  weekRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   titleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -116,21 +148,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     padding: 5,
     borderRadius: 5,
-  },
-  date: {
-    textAlign: "center",
-  },
-  dayNameContainer: {
-    flex: 1,
-    minHeight: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    margin: 3,
-  },
-  sideButton: {
-    height: 40,
-    justifyContent: "center",
   },
   title: {
     fontSize: 20,
