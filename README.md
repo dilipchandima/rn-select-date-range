@@ -1,4 +1,4 @@
-# rnv-date-range-picker
+# rn-select-date-range
 
 A simple React Native date range picker component
 
@@ -7,13 +7,13 @@ A simple React Native date range picker component
 ### Installing:
 
 ```
-npm install rnv-date-range-picker
+npm install rn-select-date-range
 ```
 
 or
 
 ```
-yarn add rnv-date-range-picker
+yarn add rn-select-date-range
 ```
 
 ### Screenshot
@@ -36,7 +36,7 @@ npm install --save moment
 import moment from "moment";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View, Text } from "react-native";
-import DateRangePicker from "rnv-date-range-picker";
+import DateRangePicker from "rn-select-date-range";
 
 const App = () => {
   const [selectedRange, setRange] = useState({});
