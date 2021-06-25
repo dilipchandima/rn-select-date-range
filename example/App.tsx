@@ -12,7 +12,7 @@ const App = () => {
           onSelectDateRange={range => {
             setRange(range);
           }}
-          blockSingleDateSelection={true}
+          blockSingleDateSelection={false}
           responseFormat="YYYY-MM-DD"
           maxDate={moment()}
           minDate={moment().subtract(100, 'days')}

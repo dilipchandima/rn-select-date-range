@@ -1,8 +1,26 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-export default ({ lable, onPress = () => {}, align, disabled = false }) => {
-  const textStyle = { textAlign: align, opacity: disabled ? 0.2 : 1 };
+interface IProps {
+  lable: string;
+  onPress: () => void;
+  align?: "center" | "auto" | "left" | "right" | "justify" | undefined;
+  disabled: boolean;
+  font?: string;
+}
+
+export default ({
+  lable,
+  onPress = () => {},
+  align,
+  disabled = false,
+  font,
+}: IProps) => {
+  const textStyle = {
+    textAlign: align,
+    opacity: disabled ? 0.2 : 1,
+    fontFamily: font,
+  };
 
   return (
     <TouchableOpacity

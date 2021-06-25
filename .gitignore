@@ -11,3 +11,7 @@ dist
 node_modules
 
 rnv-date-range-picker-*.tgz
+
+/example/node_modules
+/example/build
+lib
