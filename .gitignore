@@ -10,7 +10,7 @@ dist
 # Dependency directory
 node_modules
 
-rnv-date-range-picker-*.tgz
+rn-select-date-range-*.tgz
 
 /example/node_modules
 /example/build
