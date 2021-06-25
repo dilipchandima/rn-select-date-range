@@ -4,6 +4,8 @@ A simple React Native date range picker component
 
 ---
 
+<br/><br/>
+
 ## Installing
 
 ```
@@ -18,6 +20,8 @@ yarn add rn-select-date-range
 
 ---
 
+<br/><br/>
+
 ## Screenshot
 
 <p align="center">
@@ -31,6 +35,8 @@ yarn add rn-select-date-range
 
 ---
 
+<br/><br/>
+
 ## Prerequisites
 
 CalendarPicker requires Moment JS.
@@ -40,6 +46,8 @@ npm install --save moment
 ```
 
 ---
+
+<br/><br/>
 
 ## Example React Native App
 
@@ -96,20 +104,24 @@ export default App;
 
 ---
 
+<br/><br/>
+
 ## CalendarPicker Props
 
-| Prop                             | Type       | Description                                                                                                             |
-| :------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------- |
-| **`maxDate`**                    | `Moment()` | Optional. If you need to pass Max Date user can select, set this prop as a moment date                                  |
-| **`minDate`**                    | `Moment()` | Optional. If you need to pass Min Date user can select, set this prop as a moment date                                  |
-| **`responseFormat`**             | `String`   | Optional. Please refere the date formats here [Moment Date Formats](https://momentjs.com/docs/#/parsing/string-format/) |
-| **`onSelectDateRange`**          | `Method`   | This will return a object with firstDate and lastDate                                                                   |
-| **`blockSingleDateSelection`**   | `boolean`  | This will block the user to click single date without date range                                                        |
-| **`font`**                       | `String`   | Name of the font you are using in your theme                                                                            |
-| **`selectedDateContainerStyle`** | `Style`    | Style of the selected date container                                                                                    |
-| **`selectedDateStyle`**          | `Style`    | Style of the selected date                                                                                              |
+| Prop                             | Type          | Required   | Description                                                                                                   |
+| :------------------------------- | :------------ | :--------- | :------------------------------------------------------------------------------------------------------------ |
+| **`onSelectDateRange`**          | `Method`      | `Required` | This will return a object with firstDate and lastDate                                                         |
+| **`maxDate`**                    | `Moment Date` | `Optional` | If you need to pass Max Date user can select, set this prop as a moment date                                  |
+| **`minDate`**                    | `Moment Date` | `Optional` | If you need to pass Min Date user can select, set this prop as a moment date                                  |
+| **`responseFormat`**             | `String`      | `Optional` | Please refere the date formats here [Moment Date Formats](https://momentjs.com/docs/#/parsing/string-format/) |
+| **`blockSingleDateSelection`**   | `boolean`     | `Optional` | This will block the user to click single date without date range                                              |
+| **`font`**                       | `String`      | `Optional` | Name of the font you are using in your theme                                                                  |
+| **`selectedDateContainerStyle`** | `Style`       | `Optional` | Style of the selected date container                                                                          |
+| **`selectedDateStyle`**          | `Style`       | `Optional` | Style of the selected date                                                                                    |
 
 ---
+
+<br/><br/>
 
 ## onSelectDateRange response
 
@@ -122,6 +134,8 @@ export default App;
 
 ---
 
+<br/><br/>
+
 ## Run the sample app
 
 ```
@@ -131,6 +145,8 @@ npx react-native run-ios
 ```
 
 ---
+
+<br/><br/>
 
 ## Suggestions?
 

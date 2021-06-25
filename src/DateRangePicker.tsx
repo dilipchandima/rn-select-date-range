@@ -1,10 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ViewStyle, TextStyle } from "react-native";
 import moment from "moment";
 import Month from "./Month";
 import Button from "./Button";
 
-import PropTypes from "prop-types";
+interface IResponse {
+  firstDate: string | moment.Moment;
+  secondDate: string | moment.Moment;
+}
+
+interface IProps {
+  onSelectDateRange: (response: IResponse) => void;
+  responseFormat?: string;
+  maxDate?: moment.Moment;
+  minDate?: moment.Moment;
+  blockSingleDateSelection?: boolean;
+  font?: string;
+  selectedDateContainerStyle?: ViewStyle;
+  selectedDateStyle?: TextStyle;
+}
 
 const DateRangePicker = ({
   onSelectDateRange,
@@ -15,18 +29,18 @@ const DateRangePicker = ({
   font,
   selectedDateContainerStyle,
   selectedDateStyle,
-}) => {
+}: IProps) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
-  const [firstDate, setFirstDate] = useState(null);
-  const [secondDate, setSecondDate] = useState(null);
+  const [firstDate, setFirstDate] = useState<moment.Moment | null>(null);
+  const [secondDate, setSecondDate] = useState<moment.Moment | null>(null);
 
   const lastMonth = selectedDate.clone().subtract(1, "months");
   const lastYear = selectedDate.clone().subtract(1, "years");
   const nextMonth = selectedDate.clone().add(1, "months");
   const nextYear = selectedDate.clone().add(1, "years");
 
-  const returnSelectedRange = (fd, ld) => {
+  const returnSelectedRange = (fd: moment.Moment, ld: moment.Moment) => {
     const isWrongSide = ld?.isBefore(fd);
 
     if (responseFormat) {
@@ -46,7 +60,7 @@ const DateRangePicker = ({
     }
   };
 
-  const onSelectDate = (date) => {
+  const onSelectDate = (date: moment.Moment) => {
     if (
       blockSingleDateSelection &&
       (firstDate?.isSame(date, "dates") || secondDate?.isSame(date, "dates"))
@@ -123,21 +137,6 @@ const DateRangePicker = ({
 };
 
 export default DateRangePicker;
-
-DateRangePicker.defaultProps = {
-  blockSingleDateSelection: false,
-};
-
-DateRangePicker.prototype = {
-  onSelectDateRange: PropTypes.func.isRequired,
-  responseFormat: PropTypes.string,
-  maxDate: PropTypes.object,
-  minDate: PropTypes.object,
-  blockSingleDateSelection: PropTypes.bool,
-  font: PropTypes.string,
-  selectedDateContainerStyle: PropTypes.object,
-  selectedDateStyle: PropTypes.object,
-};
 
 const styles = StyleSheet.create({
   titleRow: {

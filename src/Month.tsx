@@ -1,6 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
 import moment from "moment";
+
+interface IProps {
+  maxDate?: moment.Moment;
+  minDate?: moment.Moment;
+  selectedDateContainerStyle?: ViewStyle;
+  selectedDateStyle?: TextStyle;
+  font?: string;
+  selectedDate: moment.Moment;
+  onSelectDate: (date: moment.Moment) => void;
+  firstDate: moment.Moment | null;
+  secondDate: moment.Moment | null;
+}
 
 export default ({
   selectedDate,
@@ -12,7 +31,7 @@ export default ({
   selectedDateContainerStyle,
   font,
   selectedDateStyle,
-}) => {
+}: IProps) => {
   const weekdayshort = moment.weekdaysShort();
   const weekdayshortname = weekdayshort.map((day) => {
     return (
@@ -22,10 +41,10 @@ export default ({
     );
   });
 
-  const firstDayOfMonth = () => {
+  const firstDayOfMonth = (): number => {
     let dateObject = selectedDate;
     let firstDay = dateObject.startOf("month").format("d");
-    return firstDay;
+    return Number(firstDay);
   };
 
   const getRows = () => {
@@ -91,8 +110,8 @@ export default ({
     }
 
     var totalSlots = [...blanks, ...daysInMonth];
-    let rows = [];
-    let cells = [];
+    let rows: any[] = [];
+    let cells: any[] = [];
 
     totalSlots.forEach((row, index) => {
       if (index % 7 !== 0) {
