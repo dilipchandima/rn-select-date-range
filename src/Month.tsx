@@ -32,8 +32,13 @@ export default ({
   font,
   selectedDateStyle,
 }: IProps) => {
+<<<<<<< HEAD:src/Month.tsx
   const weekDayShort = moment.weekdaysShort();
   const weekDayShortName = weekDayShort.map((day) => {
+=======
+  const weekdayshort = moment.weekdaysShort();
+  const weekdayshortname = weekdayshort.map((day) => {
+>>>>>>> 1dd4dc8ce922398de0d743b6e98378f748e1dc3c:src/Month.js
     return (
       <View key={`${day}_week_days`} style={styles.dayNameContainer}>
         <Text style={{ ...styles.dayNameStyle, fontFamily: font }}>{day}</Text>
