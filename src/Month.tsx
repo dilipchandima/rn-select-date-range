@@ -32,8 +32,8 @@ export default ({
   font,
   selectedDateStyle,
 }: IProps) => {
-  const weekdayshort = moment.weekdaysShort();
-  const weekdayshortname = weekdayshort.map((day) => {
+  const weekDayShort = moment.weekdaysShort();
+  const weekDayShortName = weekDayShort.map((day) => {
     return (
       <View key={`${day}_week_days`} style={styles.dayNameContainer}>
         <Text style={{ ...styles.dayNameStyle, fontFamily: font }}>{day}</Text>
@@ -136,7 +136,10 @@ export default ({
           );
         }
         rows.push(
-          <View key={`${index}_week`} style={styles.weekRow}>
+          <View
+            key={`${index}_week_${selectedDate.format("MMMM")}`}
+            style={styles.weekRow}
+          >
             {cells}
           </View>
         );
@@ -147,7 +150,7 @@ export default ({
 
   return (
     <View>
-      <View style={styles.weekRow}>{weekdayshortname}</View>
+      <View style={styles.weekRow}>{weekDayShortName}</View>
       {getRows()}
     </View>
   );
