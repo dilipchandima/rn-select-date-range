@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 interface IProps {
-  lable: string;
+  label: string;
   onPress: () => void;
   align?: "center" | "auto" | "left" | "right" | "justify" | undefined;
   disabled: boolean;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export default ({
-  lable,
+  label,
   onPress = () => {},
   align,
   disabled = false,
@@ -28,7 +28,7 @@ export default ({
       style={styles.buttonContainer}
       onPress={() => onPress()}
     >
-      <Text style={textStyle}>{lable}</Text>
+      <Text style={textStyle}>{label}</Text>
     </TouchableOpacity>
   );
 };

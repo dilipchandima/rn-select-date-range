@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ViewStyle,
+  TextStyle,
+  Pressable,
+} from "react-native";
 import moment from "moment";
 import Month from "./Month";
 import Button from "./Button";
@@ -82,13 +89,24 @@ const DateRangePicker = ({
     }
   };
 
+  const onPressClear = () => {
+    setFirstDate(null);
+    setSecondDate(null);
+    onSelectDateRange({
+      firstDate: "",
+      secondDate: "",
+    });
+  };
+
+  const isDateSelected = () => firstDate === null || secondDate === null;
+
   return (
     <View>
       <View style={styles.titleRow}>
         <Button
           font={font}
           disabled={minDate ? lastYear.isBefore(minDate, "months") : false}
-          lable={`< ${lastYear.format("YYYY")}`}
+          label={`< ${lastYear.format("YYYY")}`}
           onPress={() => setSelectedDate(lastYear)}
         />
         <Text style={{ ...styles.title, fontFamily: font }}>
@@ -97,7 +115,7 @@ const DateRangePicker = ({
         <Button
           font={font}
           disabled={maxDate ? nextYear.isAfter(maxDate, "months") : false}
-          lable={`${nextYear.format("YYYY")} >`}
+          label={`${nextYear.format("YYYY")} >`}
           onPress={() => setSelectedDate(nextYear)}
           align="right"
         />
@@ -107,7 +125,7 @@ const DateRangePicker = ({
         <Button
           font={font}
           disabled={minDate ? lastMonth.isBefore(minDate, "months") : false}
-          lable={`< ${lastMonth.format("MMM")}`}
+          label={`< ${lastMonth.format("MMM")}`}
           onPress={() => setSelectedDate(lastMonth)}
         />
         <Text style={{ ...styles.title, fontFamily: font }}>
@@ -116,7 +134,7 @@ const DateRangePicker = ({
         <Button
           font={font}
           disabled={maxDate ? nextMonth.isAfter(maxDate, "months") : false}
-          lable={`${nextMonth.format("MMM")} >`}
+          label={`${nextMonth.format("MMM")} >`}
           onPress={() => setSelectedDate(nextMonth)}
           align="right"
         />
@@ -132,6 +150,15 @@ const DateRangePicker = ({
         selectedDateContainerStyle={selectedDateContainerStyle}
         selectedDateStyle={selectedDateStyle}
       />
+      <View style={styles.clearContainer}>
+        <Pressable
+          disabled={isDateSelected()}
+          onPress={onPressClear}
+          style={[styles.clearBtn, { opacity: isDateSelected() ? 0.3 : 1 }]}
+        >
+          <Text style={{ fontFamily: font }}>Clear</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -152,5 +179,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 1,
     textAlign: "center",
+  },
+  clearBtn: {
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+  },
+  clearContainer: {
+    flexDirection: "row-reverse",
+    paddingVertical: 5,
   },
 });
