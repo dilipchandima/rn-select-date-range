@@ -119,6 +119,7 @@ export default App;
 | **`font`**                       | `String`      | `Optional` | Name of the font you are using in your theme                                                                  |
 | **`selectedDateContainerStyle`** | `Style`       | `Optional` | Style of the selected date container                                                                          |
 | **`selectedDateStyle`**          | `Style`       | `Optional` | Style of the selected date                                                                                    |
+| **`ln`**                         | `string`      | `Optional` | Two letter locales string that is supported by the Moment library                                             |
 
 ---
 
