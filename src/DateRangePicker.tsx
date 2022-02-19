@@ -10,6 +10,7 @@ import {
 import moment from "moment";
 import Month from "./Month";
 import Button from "./Button";
+require("moment/min/locales.min");
 
 interface IResponse {
   firstDate: string | moment.Moment;
@@ -25,6 +26,7 @@ interface IProps {
   font?: string;
   selectedDateContainerStyle?: ViewStyle;
   selectedDateStyle?: TextStyle;
+  ln?: string;
 }
 
 const DateRangePicker = ({
@@ -36,6 +38,7 @@ const DateRangePicker = ({
   font,
   selectedDateContainerStyle,
   selectedDateStyle,
+  ln = "en",
 }: IProps) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
@@ -46,6 +49,8 @@ const DateRangePicker = ({
   const lastYear = selectedDate.clone().subtract(1, "years");
   const nextMonth = selectedDate.clone().add(1, "months");
   const nextYear = selectedDate.clone().add(1, "years");
+
+  moment.locale(ln);
 
   const returnSelectedRange = (fd: moment.Moment, ld: moment.Moment) => {
     const isWrongSide = ld?.isBefore(fd);
@@ -125,16 +130,16 @@ const DateRangePicker = ({
         <Button
           font={font}
           disabled={minDate ? lastMonth.isBefore(minDate, "months") : false}
-          label={`< ${lastMonth.format("MMM")}`}
+          label={`< ${lastMonth.locale(ln).format("MMM")}`}
           onPress={() => setSelectedDate(lastMonth)}
         />
         <Text style={{ ...styles.title, fontFamily: font }}>
-          {selectedDate.format("MMMM")}
+          {selectedDate.locale(ln).format("MMMM")}
         </Text>
         <Button
           font={font}
           disabled={maxDate ? nextMonth.isAfter(maxDate, "months") : false}
-          label={`${nextMonth.format("MMM")} >`}
+          label={`${nextMonth.locale(ln).format("MMM")} >`}
           onPress={() => setSelectedDate(nextMonth)}
           align="right"
         />

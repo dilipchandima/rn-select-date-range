@@ -31,6 +31,7 @@ yarn add rn-select-date-range
 <p align="center">
   <img src="https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen.png">
   <img src="https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen2.png">
+  <img src="https://raw.githubusercontent.com/dilipchandima/rnv-date-range-picker/master/screen3.png">
 </p>
 
 ---
