@@ -120,7 +120,10 @@ export default App;
 | **`selectedDateContainerStyle`** | `Style`       | `Optional` | Style of the selected date container                                                                          |
 | **`selectedDateStyle`**          | `Style`       | `Optional` | Style of the selected date                                                                                    |
 | **`ln`**                         | `string`      | `Optional` | Two letter locales string that is supported by the Moment library                                             |
-
+| **`onConfirm`**                  | `Method`      | `Optional` | This function will be executed if confirm button pressed          
+| **`onClear`**                    | `Method`      | `Optional` | This function will be executed if clear button pressed          
+| **`clearBtnTitle`**              | `string`      | `Optional` | Text for the button to clear data. If empty string passed, button will not be shown          
+| **`confirmBtnTitle`**            | `string`      | `Optional` | Text for the button to confirm selection of dates. If empty string passed, button will not be shown
 ---
 
 <br/><br/>
