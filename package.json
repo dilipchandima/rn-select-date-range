@@ -1,6 +1,6 @@
 {
   "name": "rn-select-date-range",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "A simple and fully customizable React Native date range picker component",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir lib/cjs"
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
+    "publish": "yarn build && npm publish --access public"
   },
   "repository": {
     "type": "git",
