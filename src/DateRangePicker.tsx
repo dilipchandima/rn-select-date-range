@@ -27,6 +27,10 @@ interface IProps {
   selectedDateContainerStyle?: ViewStyle;
   selectedDateStyle?: TextStyle;
   ln?: string;
+  onConfirm?: () => void;
+  onClear?:() => void;
+  clearBtnTitle?: string;
+  confirmBtnTitle?: string;
 }
 
 const DateRangePicker = ({
@@ -39,6 +43,10 @@ const DateRangePicker = ({
   selectedDateContainerStyle,
   selectedDateStyle,
   ln = "en",
+  onConfirm,
+  onClear,
+  clearBtnTitle = "Clear",
+  confirmBtnTitle = "OK"
 }: IProps) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
@@ -101,7 +109,16 @@ const DateRangePicker = ({
       firstDate: "",
       secondDate: "",
     });
+    if (onClear) {
+      onClear();
+    }
   };
+
+  const onPressConfirm = () => {
+    if (onConfirm) {
+      onConfirm();
+    }
+  }
 
   const isDateSelected = () => firstDate === null || secondDate === null;
 
@@ -155,14 +172,24 @@ const DateRangePicker = ({
         selectedDateContainerStyle={selectedDateContainerStyle}
         selectedDateStyle={selectedDateStyle}
       />
-      <View style={styles.clearContainer}>
-        <Pressable
-          disabled={isDateSelected()}
-          onPress={onPressClear}
-          style={[styles.clearBtn, { opacity: isDateSelected() ? 0.3 : 1 }]}
-        >
-          <Text style={{ fontFamily: font }}>Clear</Text>
-        </Pressable>
+      <View style={styles.actionButtonsContainer}>
+        {confirmBtnTitle ? <View>
+          <Pressable
+            onPress={onPressConfirm}
+            style={[styles.actionBtn]}
+          >
+            <Text style={{ fontFamily: font }}>{confirmBtnTitle}</Text>
+          </Pressable>
+        </View> : null}
+        {clearBtnTitle ? <View>
+          <Pressable
+            disabled={isDateSelected()}
+            onPress={onPressClear}
+            style={[styles.actionBtn, { opacity: isDateSelected() ? 0.3 : 1 }]}
+          >
+            <Text style={{ fontFamily: font }}>{clearBtnTitle}</Text>
+          </Pressable>
+        </View> : null}
       </View>
     </View>
   );
@@ -185,12 +212,13 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
   },
-  clearBtn: {
+  actionBtn: {
     paddingVertical: 3,
     paddingHorizontal: 10,
   },
-  clearContainer: {
-    flexDirection: "row-reverse",
+  actionButtonsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingVertical: 5,
-  },
+  }
 });
