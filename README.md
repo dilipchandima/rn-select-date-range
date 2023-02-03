@@ -157,3 +157,9 @@ npx react-native run-ios
 ## Suggestions?
 
 Open Issues. Submit PRs.
+
+#### If you like the project
+
+If you think I have helped you, feel free to get me coffee. 😊
+
+<a href="https://www.buymeacoffee.com/dilipchandi" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="60" ></a>
