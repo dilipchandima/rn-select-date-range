@@ -71,7 +71,9 @@ const App = () => {
           responseFormat="YYYY-MM-DD"
           maxDate={moment()}
           minDate={moment().subtract(100, "days")}
-          selectedDateContainerStyle={styles.selectedDateContainerStyle}
+          selectedDateContainerStyle={
+            styles.selectedDateContainerStyle
+          }
           selectedDateStyle={styles.selectedDateStyle}
         />
         <View style={styles.container}>
@@ -119,6 +121,9 @@ export default App;
 | **`font`**                       | `String`      | `Optional` | Name of the font you are using in your theme                                                                  |
 | **`selectedDateContainerStyle`** | `Style`       | `Optional` | Style of the selected date container                                                                          |
 | **`selectedDateStyle`**          | `Style`       | `Optional` | Style of the selected date                                                                                    |
+| **`titleContainerStyle`**        | `Style`       | `Optional` | Style of the title container                                                                                  |
+| **`titleStyle`**                 | `Style`       | `Optional` | Style of the title                                                                                            |
+| **`iconColor`**                  | `String`      | `Optional` | The color to be used in calendar icons                                                                        |
 | **`ln`**                         | `string`      | `Optional` | Two letter locales string that is supported by the Moment library                                             |
 | **`onConfirm`**                  | `Method`      | `Optional` | This function will be executed if confirm button pressed                                                      |
 | **`onClear`**                    | `Method`      | `Optional` | This function will be executed if clear button pressed                                                        |

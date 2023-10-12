@@ -7,6 +7,7 @@ interface IProps {
   align?: "center" | "auto" | "left" | "right" | "justify" | undefined;
   disabled: boolean;
   font?: string;
+  iconColor?: string;
 }
 
 export default ({
@@ -15,11 +16,13 @@ export default ({
   align,
   disabled = false,
   font,
+  iconColor,
 }: IProps) => {
   const textStyle = {
     textAlign: align,
     opacity: disabled ? 0.2 : 1,
     fontFamily: font,
+    color: iconColor,
   };
 
   return (

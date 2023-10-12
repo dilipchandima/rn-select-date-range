@@ -9,7 +9,8 @@
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir lib/cjs",
-    "publish": "yarn build && npm publish --access public"
+    "publish": "yarn build && npm publish --access public",
+    "tarball": "yarn build && npm pack"
   },
   "repository": {
     "type": "git",
