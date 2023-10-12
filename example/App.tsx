@@ -18,6 +18,7 @@ const App = () => {
           minDate={moment().subtract(100, 'days')}
           selectedDateContainerStyle={styles.selectedDateContainerStyle}
           selectedDateStyle={styles.selectedDateStyle}
+          iconColor="red"
         />
         <View style={styles.container}>
           <Text>first date: {selectedRange.firstDate}</Text>
@@ -43,6 +44,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  titleStyle: {
+    color: 'white'
+  },
+  titleContainerStyle: {
+    backgroundColor: 'blue'
+  }
+
 });
 
 export default App;

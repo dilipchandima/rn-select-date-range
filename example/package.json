@@ -13,7 +13,7 @@
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-native": "0.64.2",
-    "rn-select-date-range": "file:../rn-select-date-range-1.3.2.tgz"
+    "rn-select-date-range": "file:../rn-select-date-range-5.0.0.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
