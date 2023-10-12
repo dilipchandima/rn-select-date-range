@@ -25,12 +25,15 @@ interface IProps {
   blockSingleDateSelection?: boolean;
   font?: string;
   selectedDateContainerStyle?: ViewStyle;
+  titleContainerStyle?: ViewStyle;
   selectedDateStyle?: TextStyle;
+  titleStyle?: TextStyle;
   ln?: string;
   onConfirm?: () => void;
-  onClear?:() => void;
+  onClear?: () => void;
   clearBtnTitle?: string;
   confirmBtnTitle?: string;
+  iconColor?: string;
 }
 
 const DateRangePicker = ({
@@ -42,11 +45,14 @@ const DateRangePicker = ({
   font,
   selectedDateContainerStyle,
   selectedDateStyle,
+  titleContainerStyle,
+  titleStyle,
   ln = "en",
   onConfirm,
   onClear,
   clearBtnTitle = "Clear",
-  confirmBtnTitle = "OK"
+  confirmBtnTitle = "OK",
+  iconColor,
 }: IProps) => {
   const [selectedDate, setSelectedDate] = useState(moment());
 
@@ -118,20 +124,21 @@ const DateRangePicker = ({
     if (onConfirm) {
       onConfirm();
     }
-  }
+  };
 
   const isDateSelected = () => firstDate === null || secondDate === null;
 
   return (
     <View>
-      <View style={styles.titleRow}>
+      <View style={[styles.titleRow, titleContainerStyle]}>
         <Button
           font={font}
           disabled={minDate ? lastYear.isBefore(minDate, "months") : false}
           label={`< ${lastYear.format("YYYY")}`}
           onPress={() => setSelectedDate(lastYear)}
+          iconColor={iconColor}
         />
-        <Text style={{ ...styles.title, fontFamily: font }}>
+        <Text style={{ ...styles.title, fontFamily: font, ...titleStyle }}>
           {selectedDate.format("YYYY")}
         </Text>
         <Button
@@ -140,17 +147,19 @@ const DateRangePicker = ({
           label={`${nextYear.format("YYYY")} >`}
           onPress={() => setSelectedDate(nextYear)}
           align="right"
+          iconColor={iconColor}
         />
       </View>
 
-      <View style={styles.titleRow}>
+      <View style={[styles.titleRow, titleContainerStyle]}>
         <Button
           font={font}
           disabled={minDate ? lastMonth.isBefore(minDate, "months") : false}
           label={`< ${lastMonth.locale(ln).format("MMM")}`}
           onPress={() => setSelectedDate(lastMonth)}
+          iconColor={iconColor}
         />
-        <Text style={{ ...styles.title, fontFamily: font }}>
+        <Text style={{ ...styles.title, fontFamily: font, ...titleStyle }}>
           {selectedDate.locale(ln).format("MMMM")}
         </Text>
         <Button
@@ -159,6 +168,7 @@ const DateRangePicker = ({
           label={`${nextMonth.locale(ln).format("MMM")} >`}
           onPress={() => setSelectedDate(nextMonth)}
           align="right"
+          iconColor={iconColor}
         />
       </View>
       <Month
@@ -173,23 +183,31 @@ const DateRangePicker = ({
         selectedDateStyle={selectedDateStyle}
       />
       <View style={styles.actionButtonsContainer}>
-        {confirmBtnTitle ? <View>
-          <Pressable
-            onPress={onPressConfirm}
-            style={[styles.actionBtn]}
-          >
-            <Text style={{ fontFamily: font }}>{confirmBtnTitle}</Text>
-          </Pressable>
-        </View> : null}
-        {clearBtnTitle ? <View>
-          <Pressable
-            disabled={isDateSelected()}
-            onPress={onPressClear}
-            style={[styles.actionBtn, { opacity: isDateSelected() ? 0.3 : 1 }]}
-          >
-            <Text style={{ fontFamily: font }}>{clearBtnTitle}</Text>
-          </Pressable>
-        </View> : null}
+        {confirmBtnTitle ? (
+          <View>
+            <Pressable onPress={onPressConfirm} style={[styles.actionBtn]}>
+              <Text style={[{ fontFamily: font }, titleStyle]}>
+                {confirmBtnTitle}
+              </Text>
+            </Pressable>
+          </View>
+        ) : null}
+        {clearBtnTitle ? (
+          <View>
+            <Pressable
+              disabled={isDateSelected()}
+              onPress={onPressClear}
+              style={[
+                styles.actionBtn,
+                { opacity: isDateSelected() ? 0.3 : 1 },
+              ]}
+            >
+              <Text style={{ fontFamily: font, color: iconColor }}>
+                {clearBtnTitle}
+              </Text>
+            </Pressable>
+          </View>
+        ) : null}
       </View>
     </View>
   );
@@ -220,5 +238,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 5,
-  }
+  },
 });
