@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   titleContainerStyle: {
     backgroundColor: 'blue'
   }
-
 });
 
 export default App;
